@@ -86,7 +86,12 @@ def had_workout_today():
 def morning_check():
     """10 AM — gentle start."""
     steps = get_steps_today()
-    if steps < MORNING_MINIMUM:
+    if steps >= STEP_GOAL:
+        send_imessage(
+            f"{steps:,} steps before noon. Already crushed it. "
+            f"Goal was {STEP_GOAL:,}. Today's a W."
+        )
+    elif steps < MORNING_MINIMUM:
         send_imessage(
             f"Morning. {steps:,} steps so far. "
             f"Take a 10 min walk before you start working. "
@@ -103,7 +108,12 @@ def afternoon_check():
     steps = get_steps_today()
     remaining = max(0, STEP_GOAL - steps)
 
-    if steps < AFTERNOON_MINIMUM:
+    if steps >= STEP_GOAL:
+        send_imessage(
+            f"{steps:,} steps by 2pm. Goal crushed early. "
+            f"Keep moving or coast — either way, today's a W."
+        )
+    elif steps < AFTERNOON_MINIMUM:
         send_imessage(
             f"Only {steps:,} steps today. "
             f"It's 2pm. Go outside for 15 minutes right now. "
